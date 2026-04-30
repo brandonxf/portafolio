@@ -10,7 +10,7 @@ export function PixelRobot() {
 
   const handleClick = () => {
     const messages = [
-      "¡Hola, soy Siriloooo! 🐱",
+      "¡Hola, soy Pantera! 🐱",
       "¡Miau! 🐾",
       "¿Qué quieres? 🤔",
       "¡Purr... 😌",
@@ -22,7 +22,19 @@ export function PixelRobot() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+    <motion.div
+      className="fixed bottom-1 left-0 z-50 flex flex-col items-center gap-2"
+      animate={{ 
+        x: [0, "calc(100vw - 80px)", "calc(100vw - 80px)", 0],
+        scaleX: [1, 1, -1, -1]
+      }}
+      transition={{
+        duration: 40,
+        repeat: Infinity,
+        ease: "linear",
+        times: [0, 0.5, 0.5, 1]
+      }}
+    >
       <AnimatePresence>
         {showMessage && (
           <motion.div
@@ -48,12 +60,12 @@ export function PixelRobot() {
         <Image
           src="/mxjfiles-cat-23414_256.gif"
           alt="Siriloooo el gato"
-          width={128}
-          height={128}
-          className="drop-shadow-[0_0_8px_rgba(0,212,255,0.5)] scale-x-[-1]"
+          width={105}
+          height={80}
+          className="drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]"
           unoptimized
         />
       </button>
-    </div>
+    </motion.div>
   )
 }

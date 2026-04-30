@@ -7,7 +7,7 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 export function HeroSection() {
   return (
     <section id="hero" className="relative min-h-screen">
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-32">
+      <div className="relative z-20 mx-auto max-w-7xl px-10 py-50 lg:py-7">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -56,16 +56,38 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex-shrink-0"
+            className="flex-shrink-0 lg:-translate-x-4"
           >
-            <div className="h-48 w-48 overflow-hidden rounded-2xl border-4 border-neon-blue/50 shadow-lg shadow-neon-blue/20 sm:h-56 sm:w-56 md:h-64 md:w-64">
-              <Image 
-                src="/brandon.png" 
-                alt="Brandon Acevedo" 
-                width={256} 
-                height={256}
-                className="object-cover"
-              />
+            <div className="w-full max-w-sm overflow-hidden rounded-[2rem] border border-cyan-500/20 bg-slate-950/90 shadow-2xl shadow-cyan-500/10 backdrop-blur-xl">
+              <div className="relative h-80 w-full overflow-hidden bg-slate-900 sm:h-90">
+                <Image
+                  src="/brandon.png"
+                  alt="Brandon Acevedo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="space-y-4 p-6 text-slate-200">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-cyan-300">Perfil</p>
+                  <h3 className="mt-2 text-2xl font-semibold">Brandon Acevedo</h3>
+                </div>
+
+                <div className="grid gap-3 rounded-3xl bg-slate-900/80 p-4 text-sm">
+                  <div className="flex items-center justify-between text-slate-100">
+                    <span className="text-xs uppercase text-cyan-300">Edad</span>
+                    <span>19 años</span>
+                  </div>
+                  <div className="flex items-center justify-between text-slate-100">
+                    <span className="text-xs uppercase text-cyan-300">Ubicación</span>
+                    <span>Barranquilla, Colombia</span>
+                  </div>
+                  <div className="text-xs leading-5 text-slate-300">
+                    Desarrollador Full Stack con pasión por crear interfaces limpias, modernas y funcionales.
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </motion.div>
@@ -75,7 +97,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-6 flex flex-col items-center gap-8 lg:items-start"
+          className="mt-0 flex flex-col items-center gap-8 lg:items-start -mt-50 lg:-mt-25"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

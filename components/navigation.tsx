@@ -2,21 +2,22 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X } from "lucide-react"
+import { Home, User, Briefcase, Code, Settings, MessageSquare, Mail, ChevronRight, ChevronLeft } from "lucide-react"
 
 const navItems = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Sobre Mí", href: "#about" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "Habilidades", href: "#skills" },
-  { name: "Servicios", href: "#services" },
-  { name: "Contacto", href: "#contact" },
+  { name: "Inicio", href: "#hero", icon: Home },
+  { name: "Sobre Mí", href: "#about", icon: User },
+  { name: "Proyectos", href: "#projects", icon: Briefcase },
+  { name: "Habilidades", href: "#skills", icon: Code },
+  { name: "Servicios", href: "#services", icon: Settings },
+  { name: "Testimonios", href: "#testimonials", icon: MessageSquare },
+  { name: "Contacto", href: "#contact", icon: Mail },
 ]
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
+  const [isExpanded, setIsExpanded] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,84 +41,75 @@ export function Navigation() {
   }, [])
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="glass fixed left-1/2 top-6 z-50 -translate-x-1/2 rounded-2xl"
+    <motion.nav
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="fixed left-6 top-1/2 z-50 -translate-y-1/2"
+    >
+      <motion.div
+        animate={{ width: isExpanded ? 200 : 64 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="glass rounded-2xl p-2 shadow-2xl"
       >
-        <div className="flex items-center px-6 py-3">
-          {/* Desktop Navigation */}
-          <div className="flex items-center gap-8">
-            {navItems.map((item, index) => (
+        <div className="flex flex-col gap-2">
+          {navItems.map((item, index) => {
+            const Icon = item.icon
+            const isActive = activeSection === item.href.replace("#", "")
+
+            return (
               <motion.a
                 key={item.name}
                 href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative text-sm font-medium transition-colors hover:text-neon-cyan ${
-                  activeSection === item.href.replace("#", "")
-                    ? "text-neon-cyan"
-                    : "text-muted-foreground"
+                className={`group relative flex items-center gap-3 rounded-xl px-3 py-3 transition-all duration-300 ${
+                  isActive
+                    ? "bg-neon-cyan/20 text-neon-cyan shadow-lg shadow-neon-cyan/20"
+                    : "text-muted-foreground hover:bg-slate-800/50 hover:text-neon-cyan"
                 }`}
               >
-                {item.name}
-                {activeSection === item.href.replace("#", "") && (
-                  <motion.span
-                    layoutId="activeSection"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-neon-cyan"
-                  />
-                )}
-              </motion.a>
-            ))}
-          </div>
+                <motion.div
+                  animate={{ scale: isActive ? 1.1 : 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Icon size={20} />
+                </motion.div>
 
-          {/* Mobile Menu Button */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.span
+                      initial={{ opacity: 0, x: -10, width: 0 }}
+                      animate={{ opacity: 1, x: 0, width: "auto" }}
+                      exit={{ opacity: 0, x: -10, width: 0 }}
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                      className="whitespace-nowrap text-sm font-medium overflow-hidden"
+                    >
+                      {item.name}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.a>
+            )
+          })}
+
+          {/* Toggle Button */}
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-foreground md:hidden"
+            onClick={() => setIsExpanded(!isExpanded)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative mt-4 flex items-center justify-center rounded-xl bg-slate-800/50 p-3 text-muted-foreground transition-all duration-300 hover:bg-neon-cyan/20 hover:text-neon-cyan"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChevronRight size={16} />
+            </motion.div>
           </motion.button>
         </div>
-      </motion.nav>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="glass fixed inset-y-4 right-4 z-40 w-64 rounded-2xl p-8 pt-24 md:hidden"
-          >
-            <div className="flex flex-col gap-6">
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsOpen(false)}
-                  className={`text-lg font-medium transition-colors hover:text-neon-cyan ${
-                    activeSection === item.href.replace("#", "")
-                      ? "text-neon-cyan"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {item.name}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+      </motion.div>
+    </motion.nav>
   )
 }

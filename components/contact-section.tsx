@@ -2,18 +2,18 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter } from "lucide-react"
+import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter, Instagram } from "lucide-react"
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "dev@example.com", href: "mailto:dev@example.com" },
-  { icon: MapPin, label: "Ubicación", value: "Ciudad de México, MX", href: "#" },
-  { icon: Phone, label: "Teléfono", value: "+52 123 456 7890", href: "tel:+521234567890" },
+  { icon: Mail, label: "Email", value: "brandonace07@gmail.com", href: "mailto:brandonace07@gmail.com" },
+  { icon: MapPin, label: "Ubicación", value: "Barranquilla, Colombia", href: "#" },
+  { icon: Phone, label: "Teléfono", value: "+57 3154143417", href: "tel:+573154143417" },
 ]
 
 const socialLinks = [
-  { icon: Github, label: "GitHub", href: "https://github.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Twitter, label: "Twitter", href: "https://twitter.com" },
+  { icon: Github, label: "GitHub", href: "https://github.com/brandonxf" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/brandonxf" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/brandxn__0/" },
 ]
 
 export function ContactSection() {
