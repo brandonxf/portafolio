@@ -97,7 +97,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-12 flex flex-col items-center gap-8 lg:items-start lg:mt-0"
+          className="mt-8 flex flex-col items-center gap-8 lg:items-start lg:-mt-25"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
