@@ -57,7 +57,7 @@ export function SkillsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="skills" className="relative py-32">
+    <section id="skills" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-neon-blue/10 blur-3xl" />
         <div className="absolute -right-40 bottom-1/4 h-80 w-80 rounded-full bg-neon-purple/10 blur-3xl" />

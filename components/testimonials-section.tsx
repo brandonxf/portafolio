@@ -47,7 +47,7 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="relative py-32">
+    <section id="testimonials" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}

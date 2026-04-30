@@ -7,7 +7,7 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 export function HeroSection() {
   return (
     <section id="hero" className="relative min-h-screen">
-      <div className="relative z-20 mx-auto max-w-7xl px-10 py-50 lg:py-7">
+      <div className="relative z-20 mx-auto max-w-7xl px-6 py-15 sm:py-32 lg:px-10 lg:py-7">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-0 flex flex-col items-center gap-8 lg:items-start -mt-50 lg:-mt-25"
+          className="mt-12 flex flex-col items-center gap-8 lg:items-start lg:mt-0"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

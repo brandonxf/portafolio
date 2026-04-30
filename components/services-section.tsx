@@ -54,7 +54,7 @@ export function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="services" className="relative py-32">
+    <section id="services" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}

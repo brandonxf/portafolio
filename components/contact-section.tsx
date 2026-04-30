@@ -36,7 +36,7 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="relative py-32">
+    <section id="contact" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-neon-purple/10 blur-3xl" />
