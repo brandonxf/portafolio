@@ -7,7 +7,7 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
 export function HeroSection() {
   return (
     <section id="hero" className="relative min-h-screen">
-      <div className="relative z-20 mx-auto max-w-7xl px-6 py-15 sm:py-32 lg:px-10 lg:py-7">
+      <div className="relative z-20 mx-auto max-w-7xl px-6 py-15 sm:py-32 lg:px-10 lg:py-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,6 +48,65 @@ export function HeroSection() {
               <span className="text-muted-foreground">Transformo ideas en </span>
               <span className="text-gradient">soluciones digitales</span>
             </motion.h2>
+
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="flex flex-wrap gap-4"
+            >
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative overflow-hidden rounded-full bg-neon-blue px-8 py-3 font-medium text-background transition-all hover:glow-blue"
+              >
+                <span className="relative z-10">Ver Proyectos</span>
+                <motion.div
+                  className="absolute inset-0 bg-neon-cyan"
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.a>
+
+              <motion.a
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full border-glow bg-transparent px-8 py-3 font-medium text-foreground transition-all hover:bg-neon-blue/10"
+              >
+                Contactar
+              </motion.a>
+            </motion.div>
+
+            {/* Social icons */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1 }}
+              className="flex items-center gap-6"
+            >
+              {[
+                { icon: Github, href: "https://github.com/brandonxf", label: "GitHub" },
+                { icon: Linkedin, href: "https://linkedin.com/in/brandonxf", label: "LinkedIn" },
+                { icon: Mail, href: "mailto:brandonace07@gmail.com", label: "Email" },
+              ].map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.2, y: -2 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="text-muted-foreground transition-colors hover:text-neon-cyan"
+                  aria-label={social.label}
+                >
+                  <social.icon size={24} />
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
 
           {/* Right side - Image */}
@@ -55,7 +114,7 @@ export function HeroSection() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="flex-shrink-0 lg:-translate-x-4"
+            className="shrink-0 lg:-translate-x-4"
           >
             <div className="w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-cyan-500/5 backdrop-blur-2xl">
               <div className="relative h-80 w-full overflow-hidden sm:h-90">
@@ -90,71 +149,6 @@ export function HeroSection() {
                 </p>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Buttons and social icons - left aligned below */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-8 flex flex-col items-start gap-8 pl-6 sm:pl-8 lg:-mt-25"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="flex flex-wrap gap-4"
-          >
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative overflow-hidden rounded-full bg-neon-blue px-8 py-3 font-medium text-background transition-all hover:glow-blue"
-            >
-              <span className="relative z-10">Ver Proyectos</span>
-              <motion.div
-                className="absolute inset-0 bg-neon-cyan"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.a>
-
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-full border-glow bg-transparent px-8 py-3 font-medium text-foreground transition-all hover:bg-neon-blue/10"
-            >
-              Contactar
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="flex items-center gap-6 pt-4"
-          >
-            {[
-              { icon: Github, href: "https://github.com/brandonxf", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com/in/brandonxf", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:brandonace07@gmail.com", label: "Email" },
-            ].map((social) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, y: -2 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-muted-foreground transition-colors hover:text-neon-cyan"
-                aria-label={social.label}
-              >
-                <social.icon size={24} />
-              </motion.a>
-            ))}
           </motion.div>
         </motion.div>
 

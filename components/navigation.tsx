@@ -48,7 +48,7 @@ export function Navigation() {
   return (
     <>
       {/* Mobile: Hamburger Button - Fixed top left */}
-      <div className="fixed left-4 top-4 z-[60] md:hidden">
+      <div className="fixed left-4 top-4 z-60 md:hidden">
         <motion.button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           whileHover={{ scale: 1.05 }}
@@ -127,7 +127,7 @@ export function Navigation() {
         <motion.div
           animate={{ width: 64 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="glass rounded-2xl p-2 shadow-2xl"
+          className="glass max-h-[85vh] overflow-y-auto rounded-2xl p-2 shadow-2xl"
         >
           <div className="flex flex-col gap-2">
             {navItems.map((item) => {
