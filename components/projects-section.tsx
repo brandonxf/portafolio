@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
+import { asset } from "@/lib/asset"
 
 const projects = [
   {
@@ -132,7 +133,7 @@ export function ProjectsSection() {
                     />
                     <div className="relative h-64 overflow-hidden rounded-3xl border border-white/10 sm:h-80">
                       <Image
-                        src={project.image}
+                        src={asset(project.image)}
                         alt={project.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"

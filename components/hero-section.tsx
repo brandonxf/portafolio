@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react"
+import { asset } from "@/lib/asset"
 
 export function HeroSection() {
   return (
@@ -119,7 +120,7 @@ export function HeroSection() {
             <div className="w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-cyan-500/5 backdrop-blur-2xl">
               <div className="relative h-80 w-full overflow-hidden sm:h-90">
                 <Image
-                  src="/brandon.png"
+                  src={asset("/brandon.png")}
                   alt="Brandon Acevedo"
                   fill
                   className="object-cover"

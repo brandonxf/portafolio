@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter, Instagram, Check, AlertCircle } from "lucide-react"
+import { API_URL } from "@/lib/asset"
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "brandonace07@gmail.com", href: "mailto:brandonace07@gmail.com" },
@@ -33,7 +34,7 @@ export function ContactSection() {
     setStatus("idle")
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),

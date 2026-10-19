@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+import { asset } from "@/lib/asset"
 
 export function PixelRobot() {
   const [showMessage, setShowMessage] = useState(false)
@@ -58,7 +59,7 @@ export function PixelRobot() {
         aria-label="Saludar a Siriloooo"
       >
         <Image
-          src="/mxjfiles-cat-23414_256.gif"
+          src={asset("/mxjfiles-cat-23414_256.gif")}
           alt="Siriloooo el gato"
           width={105}
           height={80}

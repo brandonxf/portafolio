@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Poppins, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { asset } from '@/lib/asset'
 
 const poppins = Poppins({ 
   subsets: ["latin"],
@@ -28,19 +29,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/icon-light-32x32.png',
+        url: asset('/icon-light-32x32.png'),
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/icon-dark-32x32.png',
+        url: asset('/icon-dark-32x32.png'),
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/icon.svg',
+        url: asset('/icon.svg'),
         type: 'image/svg+xml',
       },
     ],
-    apple: '/apple-icon.png',
+    apple: asset('/apple-icon.png'),
   },
 }
 
@@ -59,7 +60,7 @@ export default function RootLayout({
     <html lang="es" className="bg-background">
       <body className={`${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased cursor-none md:cursor-none`}>
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_IS_GITHUB_PAGES && <Analytics />}
       </body>
     </html>
   )
