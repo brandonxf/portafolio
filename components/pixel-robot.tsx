@@ -54,7 +54,7 @@ export function PixelRobot() {
 
       <button
         onClick={handleClick}
-        className="cursor-pointer focus:outline-none"
+        className="focus:outline-none"
         aria-label="Saludar a Siriloooo"
       >
         <Image

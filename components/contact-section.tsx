@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter, Instagram } from "lucide-react"
+import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter, Instagram, Check, AlertCircle } from "lucide-react"
 
 const contactInfo = [
   { icon: Mail, label: "Email", value: "brandonace07@gmail.com", href: "mailto:brandonace07@gmail.com" },
@@ -25,24 +25,33 @@ export function ContactSection() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setFormState({ name: "", email: "", message: "" })
-    setIsSubmitting(false)
+    setStatus("idle")
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formState),
+      })
+
+      if (!res.ok) throw new Error("Request failed")
+
+      setFormState({ name: "", email: "", message: "" })
+      setStatus("success")
+    } catch {
+      setStatus("error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <section id="contact" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/4 top-1/4 h-96 w-96 rounded-full bg-neon-purple/10 blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-neon-cyan/10 blur-3xl" />
-      </div>
-
+    <section id="contact" className="relative py-12">
       <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
@@ -207,6 +216,28 @@ export function ContactSection() {
                   </>
                 )}
               </motion.button>
+
+              {status === "success" && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-sm text-neon-cyan"
+                >
+                  <Check size={16} />
+                  ¡Mensaje enviado! Te responderé pronto.
+                </motion.p>
+              )}
+
+              {status === "error" && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-sm text-destructive"
+                >
+                  <AlertCircle size={16} />
+                  Algo salió mal. Intenta de nuevo o escríbeme a brandonace07@gmail.com
+                </motion.p>
+              )}
             </motion.form>
           </div>
         </motion.div>

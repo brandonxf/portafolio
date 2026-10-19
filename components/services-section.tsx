@@ -54,8 +54,8 @@ export function ServicesSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="services" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="services" className="relative py-12">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -98,36 +98,36 @@ export function ServicesSection() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: 0.4 + index * 0.1 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ y: -8 }}
                 className="glass group relative overflow-hidden rounded-2xl p-8 transition-all hover:border-glow"
               >
-                {/* Hover gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/5 to-neon-purple/5 opacity-0 transition-opacity group-hover:opacity-100" />
+                {/* Background index number */}
+                <span className="pointer-events-none absolute -top-3 right-5 select-none text-7xl font-bold text-white/5 transition-colors duration-300 group-hover:text-neon-cyan/10">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
 
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative mb-6 inline-flex rounded-xl bg-neon-blue/20 p-4"
-                >
-                  <service.icon className="h-8 w-8 text-neon-cyan" />
-                </motion.div>
+                <div className="relative">
+                  <div className="mb-6 inline-flex rounded-xl border border-neon-cyan/20 bg-neon-blue/10 p-3 text-neon-cyan transition-colors group-hover:bg-neon-blue/20">
+                    <service.icon className="h-6 w-6" />
+                  </div>
 
-                <h3 className="relative mb-3 text-xl font-semibold">{service.title}</h3>
-                <p className="relative mb-6 text-sm text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
+                  <h3 className="mb-3 text-xl font-semibold">{service.title}</h3>
+                  <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
 
-                <ul className="relative space-y-2">
-                  {service.features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-center gap-2 text-sm text-muted-foreground"
-                    >
-                      <span className="h-1 w-1 rounded-full bg-neon-cyan" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="space-y-2 border-t border-white/10 pt-4">
+                    {service.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                      >
+                        <span className="h-1 w-1 rounded-full bg-neon-cyan" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             ))}
           </div>

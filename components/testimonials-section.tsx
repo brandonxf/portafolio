@@ -47,8 +47,8 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="testimonials" className="relative py-12">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}

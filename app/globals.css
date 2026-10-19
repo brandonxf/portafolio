@@ -94,10 +94,7 @@
   }
   
   .text-gradient {
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--neon-cyan);
   }
   
   .glow-cyan {
@@ -144,4 +141,34 @@
 ::selection {
   background: oklch(0.7 0.2 220 / 0.3);
   color: oklch(0.95 0 0);
+}
+
+/* Marquee loops for the skills section */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Keep the OS cursor hidden everywhere once the custom cursor takes over.
+   Links/buttons get an explicit `cursor: pointer` from the browser's own
+   stylesheet, which otherwise wins over the `cursor-none` on <body>. */
+@media (hover: hover) and (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
 }

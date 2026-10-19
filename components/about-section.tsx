@@ -39,8 +39,8 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="about" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="about" className="relative py-12">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}

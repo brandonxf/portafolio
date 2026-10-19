@@ -9,7 +9,7 @@ export function Footer() {
   const socialLinks = [
     { icon: Github, href: "https://github.com/brandonxf", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com/in/brandonxf", label: "LinkedIn" },
-    { icon: Mail, href: "brandonace07@gmail.com", label: "Email" },
+    { icon: Mail, href: "mailto:brandonace07@gmail.com", label: "Email" },
   ]
 
   return (

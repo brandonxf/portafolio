@@ -2,6 +2,7 @@
 
 import { Navigation } from "@/components/navigation"
 import { CustomCursor } from "@/components/custom-cursor"
+import { BackgroundGlow } from "@/components/background-glow"
 import { HeroSection } from "@/components/hero-section"
 import { AboutSection } from "@/components/about-section"
 import { ProjectsSection } from "@/components/projects-section"
@@ -18,6 +19,7 @@ export default function Portfolio() {
       <CustomCursor />
       <Navigation />
       <main className="relative overflow-hidden">
+        <BackgroundGlow />
         <HeroSection />
         <AboutSection />
         <ProjectsSection />

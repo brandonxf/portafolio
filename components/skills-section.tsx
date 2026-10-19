@@ -52,17 +52,25 @@ const technologies = [
   { name: "APIs", icon: TbApi, color: "#8B5CF6" },
 ]
 
+const midpoint = Math.ceil(technologies.length / 2)
+const firstRow = technologies.slice(0, midpoint)
+const secondRow = technologies.slice(midpoint)
+
+function TechPill({ tech }: { tech: (typeof technologies)[number] }) {
+  return (
+    <div className="glass flex shrink-0 items-center gap-3 rounded-full border border-white/10 px-5 py-3 transition-colors hover:border-neon-cyan/30">
+      <tech.icon className="h-6 w-6 shrink-0" style={{ color: tech.color }} />
+      <span className="whitespace-nowrap text-sm font-medium text-muted-foreground">{tech.name}</span>
+    </div>
+  )
+}
+
 export function SkillsSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="skills" className="relative py-12 scroll-mt-5 lg:scroll-mt-32">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-neon-blue/10 blur-3xl" />
-        <div className="absolute -right-40 bottom-1/4 h-80 w-80 rounded-full bg-neon-purple/10 blur-3xl" />
-      </div>
-
+    <section id="skills" className="relative py-12">
       <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           ref={ref}
@@ -90,23 +98,19 @@ export function SkillsSection() {
             </motion.h2>
           </div>
 
-          {/* Tech Logos Grid */}
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.05 + index * 0.03 }}
-                whileHover={{ scale: 1.1, y: -5 }}
-                className="glass flex flex-col items-center justify-center rounded-2xl p-4 transition-all hover:border-glow hover:shadow-lg hover:shadow-neon-cyan/10"
-              >
-                <tech.icon className="h-10 w-10" style={{ color: tech.color }} />
-                <span className="mt-3 text-center text-xs font-medium text-muted-foreground">
-                  {tech.name}
-                </span>
-              </motion.div>
-            ))}
+          {/* Tech Logos Marquee */}
+          <div className="relative flex flex-col gap-6 overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            <div className="flex w-max gap-4 animate-[marquee-left_32s_linear_infinite] hover:paused">
+              {[...firstRow, ...firstRow].map((tech, index) => (
+                <TechPill key={`${tech.name}-${index}`} tech={tech} />
+              ))}
+            </div>
+
+            <div className="flex w-max gap-4 animate-[marquee-right_38s_linear_infinite] hover:paused">
+              {[...secondRow, ...secondRow].map((tech, index) => (
+                <TechPill key={`${tech.name}-${index}`} tech={tech} />
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

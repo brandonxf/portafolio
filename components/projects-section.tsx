@@ -1,8 +1,7 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react"
+import { motion } from "framer-motion"
+import { ExternalLink, Github } from "lucide-react"
 import Image from "next/image"
 
 const projects = [
@@ -79,32 +78,21 @@ const projects = [
 ]
 
 export function ProjectsSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  const nextProject = () => {
-    setActiveIndex((prev) => (prev + 1) % projects.length)
-  }
-
-  const prevProject = () => {
-    setActiveIndex((prev) => (prev - 1 + projects.length) % projects.length)
-  }
-
   return (
-    <section id="projects" className="relative py-12 scroll-mt-1 lg:scroll-mt-32">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="projects" className="relative py-12">
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
           {/* Header */}
-          <div className="mb-16 text-center">
+          <div className="mb-20 text-center">
             <motion.p
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.2 }}
               className="text-sm font-medium tracking-widest text-neon-cyan uppercase"
             >
@@ -112,7 +100,8 @@ export function ProjectsSection() {
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: 0.3 }}
               className="mt-4 text-3xl font-bold sm:text-4xl"
             >
@@ -120,126 +109,88 @@ export function ProjectsSection() {
             </motion.h2>
           </div>
 
-          {/* Featured Project */}
-          <div className="relative mb-12">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
-              className={`glass overflow-hidden rounded-3xl bg-gradient-to-br ${projects[activeIndex].color}`}
-            >
-              <div className="grid gap-8 lg:grid-cols-2">
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden lg:h-auto">
-                  <Image
-                    src={projects[activeIndex].image}
-                    alt={projects[activeIndex].title}
-                    fill
-                    className="object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent lg:bg-gradient-to-r" />
-                </div>
+          {/* Project list */}
+          <div className="flex flex-col gap-24">
+            {projects.map((project, index) => {
+              const isReversed = index % 2 === 1
 
-                {/* Content */}
-                <div className="flex flex-col justify-center p-8 lg:p-12">
-                  <motion.span
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="mb-2 text-sm text-neon-cyan"
-                  >
-                    Proyecto {activeIndex + 1}/{projects.length}
-                  </motion.span>
-                  <h3 className="mb-4 text-2xl font-bold sm:text-3xl">
-                    {projects[activeIndex].title}
-                  </h3>
-                  <p className="mb-6 text-muted-foreground leading-relaxed">
-                    {projects[activeIndex].description}
-                  </p>
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.6 }}
+                  className={`group flex flex-col items-center gap-8 lg:gap-16 ${
+                    isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
+                  }`}
+                >
+                  {/* Image */}
+                  <div className="relative w-full lg:w-1/2">
+                    <div
+                      className={`absolute -inset-4 -z-10 rounded-3xl bg-linear-to-br ${project.color} opacity-50 blur-2xl transition-opacity duration-500 group-hover:opacity-80`}
+                    />
+                    <div className="relative h-64 overflow-hidden rounded-3xl border border-white/10 sm:h-80">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  </div>
 
-                  {/* Tags */}
-                  <div className="mb-8 flex flex-wrap gap-2">
-                    {projects[activeIndex].tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-neon-blue/20 px-3 py-1 text-xs font-medium text-neon-cyan"
+                  {/* Content */}
+                  <div className="w-full lg:w-1/2">
+                    <span className="text-sm text-neon-cyan">
+                      Proyecto {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-2 text-2xl font-bold sm:text-3xl">{project.title}</h3>
+                    <p className="mt-4 leading-relaxed text-muted-foreground">
+                      {project.description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-neon-blue/20 bg-neon-blue/10 px-3 py-1 text-xs font-medium text-neon-cyan"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Links */}
+                    <div className="mt-8 flex gap-4">
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 rounded-full border-glow px-6 py-2 text-sm font-medium transition-all hover:bg-neon-blue/10"
                       >
-                        {tag}
-                      </span>
-                    ))}
+                        <Github size={18} />
+                        Código
+                      </motion.a>
+                      <motion.a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 rounded-full bg-neon-blue px-6 py-2 text-sm font-medium text-background transition-all hover:glow-blue"
+                      >
+                        <ExternalLink size={18} />
+                        Demo
+                      </motion.a>
+                    </div>
                   </div>
-
-                  {/* Links */}
-                  <div className="flex gap-4">
-                    <motion.a
-                      href={projects[activeIndex].github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 rounded-full border-glow px-6 py-2 text-sm font-medium transition-all hover:bg-neon-blue/10"
-                    >
-                      <Github size={18} />
-                      Código
-                    </motion.a>
-                    <motion.a
-                      href={projects[activeIndex].live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 rounded-full bg-neon-blue px-6 py-2 text-sm font-medium text-background transition-all hover:glow-blue"
-                    >
-                      <ExternalLink size={18} />
-                      Demo
-                    </motion.a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Navigation Buttons */}
-            <div className="absolute -bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={prevProject}
-                className="glass rounded-full p-3 transition-all hover:border-glow"
-              >
-                <ChevronLeft size={20} />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={nextProject}
-                className="glass rounded-full p-3 transition-all hover:border-glow"
-              >
-                <ChevronRight size={20} />
-              </motion.button>
-            </div>
-          </div>
-
-          {/* Project Thumbnails */}
-          <div className="mt-12 flex justify-center gap-4">
-            {projects.map((project, index) => (
-              <motion.button
-                key={project.id}
-                onClick={() => setActiveIndex(index)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`relative h-16 w-24 overflow-hidden rounded-lg transition-all ${
-                  index === activeIndex ? "ring-2 ring-neon-cyan" : "opacity-50 hover:opacity-100"
-                }`}
-              >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
-              </motion.button>
-            ))}
+                </motion.div>
+              )
+            })}
           </div>
         </motion.div>
       </div>
